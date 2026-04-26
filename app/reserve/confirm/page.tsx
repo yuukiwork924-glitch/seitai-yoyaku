@@ -82,7 +82,7 @@ export default function ConfirmPage() {
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
       <ReserveHeader step={5} title="予約内容の確認" backHref="/reserve/info" />
-      <div className="max-w-2xl mx-auto p-4 pb-8 space-y-4">
+      <div className="max-w-2xl mx-auto px-4 pb-8 pt-8 space-y-4">
 
         {error && (
           <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>

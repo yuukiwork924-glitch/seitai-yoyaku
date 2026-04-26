@@ -26,7 +26,7 @@ export default function ReserveMenuStep({ menus }: { menus: Menu[] }) {
     <div className="min-h-screen bg-[#FAF7F2]">
       <ReserveHeader step={1} title="メニューを選ぶ" />
 
-      <div className="max-w-2xl mx-auto px-4 pt-5 pb-24">
+      <div className="max-w-2xl mx-auto px-4 pt-8 pb-24">
         <p className="text-sm text-[#6B5744] mb-5">施術メニューを1つ選んでください</p>
 
         <div className="space-y-3">

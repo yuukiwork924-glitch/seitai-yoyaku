@@ -53,7 +53,7 @@ export default function StaffPage() {
     <div className="min-h-screen bg-[#FAF7F2]">
       <ReserveHeader step={3} title="スタッフを選んでください" backHref="/reserve/datetime" />
 
-      <div className="max-w-2xl mx-auto px-4 pt-5 pb-8 space-y-3">
+      <div className="max-w-2xl mx-auto px-4 pt-8 pb-8 space-y-3">
         <p className="text-sm text-[#6B5744]">ご希望のスタッフをお選びください</p>
 
         {/* 指名なし */}
