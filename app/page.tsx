@@ -41,7 +41,7 @@ export default async function TopPage() {
 
       <main>
         {/* ─── HERO ─── */}
-        <section className="relative h-screen min-h-[600px] overflow-hidden">
+        <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
           <Image
             src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1400&auto=format&fit=crop"
             alt="温かみのある施術の様子"
@@ -296,7 +296,10 @@ export default async function TopPage() {
       </main>
 
       {/* ─── STICKY CTA (mobile only) ─── */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E8DDD0] px-4 py-3 z-20 md:hidden">
+      <div
+        className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E8DDD0] px-4 pt-3 z-20 md:hidden"
+        style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+      >
         <Link
           href="/reserve"
           className="flex items-center justify-center gap-2 bg-[#8C6239] text-white font-bold py-4 rounded-none text-base w-full active:scale-[0.97] transition-all"

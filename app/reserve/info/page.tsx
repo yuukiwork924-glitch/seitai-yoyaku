@@ -95,7 +95,7 @@ export default function InfoPage() {
                 <div>
                   <Label className="text-sm font-medium text-[#6B5744]">性別</Label>
                   <select
-                    className="flex h-12 w-full border border-[#E8DDD0] bg-white px-4 text-sm mt-1 focus:outline-none focus:ring-2 focus:ring-[#8C6239]"
+                    className="flex h-12 w-full border border-[#E8DDD0] bg-white px-4 text-base mt-1 focus:outline-none focus:ring-2 focus:ring-[#8C6239]"
                     value={intakeForm.gender}
                     onChange={(e) => setIntakeForm(p => ({ ...p, gender: e.target.value }))}
                   >

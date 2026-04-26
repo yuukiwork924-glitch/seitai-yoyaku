@@ -77,7 +77,10 @@ export default function ReserveMenuStep({ menus }: { menus: Menu[] }) {
       </div>
 
       {/* 下部: ホームへ戻る */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8DDD0] px-4 py-3">
+      <div
+        className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#E8DDD0] px-4 pt-3"
+        style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+      >
         <Link href="/" className="flex items-center justify-center text-sm text-[#6B5744] py-1 hover:text-[#8C6239] transition-colors">
           ← トップページへ戻る
         </Link>
