@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Star, History, ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import MypageSignOut from "@/components/customer/MypageSignOut";
+import CancelButton from "@/components/customer/CancelButton";
 
 const STATUS_LABEL: Record<string, string> = {
   CONFIRMED: "予約確定", COMPLETED: "施術完了", CANCELLED: "キャンセル", NO_SHOW: "無断キャンセル"
@@ -82,6 +83,7 @@ export default async function MypagePage() {
                   {formatCurrency(nextReservation.menu.price)}
                 </p>
               </div>
+              <CancelButton reservationId={nextReservation.id} />
             </CardContent>
           </Card>
         ) : (

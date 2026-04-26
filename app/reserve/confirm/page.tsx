@@ -8,6 +8,7 @@ import ReserveHeader from "@/components/customer/ReserveHeader";
 import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
+import { CalendarDays, Clock, User, Utensils } from "lucide-react";
 
 export default function ConfirmPage() {
   const router = useRouter();
@@ -17,6 +18,14 @@ export default function ConfirmPage() {
   const [usePoints, setUsePoints] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [redirected, setRedirected] = useState(false);
+
+  useEffect(() => {
+    if (!draft.menuId) {
+      setRedirected(true);
+      router.push("/reserve");
+    }
+  }, [draft.menuId, router]);
 
   useEffect(() => {
     const userId = (session?.user as { id: string })?.id;
@@ -27,13 +36,12 @@ export default function ConfirmPage() {
     }
   }, [session]);
 
-  if (!draft.menuId) {
-    if (typeof window !== "undefined") router.push("/reserve");
-    return null;
+  if (redirected || !draft.menuId) {
+    return <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center text-[#8a7e72]">リダイレクト中...</div>;
   }
 
-  const settings = { pointToYen: 100 };
-  const pointDiscount = usePoints ? pointBalance * settings.pointToYen : 0;
+  const pointToYen = 100;
+  const pointDiscount = usePoints ? pointBalance * pointToYen : 0;
   const finalPrice = Math.max(0, (draft.menuPrice ?? 0) - pointDiscount);
 
   const handleConfirm = async () => {
@@ -64,32 +72,39 @@ export default function ConfirmPage() {
     router.push(`/reserve/complete?id=${reservation.id}`);
   };
 
+  const summaryItems = [
+    { icon: Utensils, label: "メニュー", value: draft.menuName },
+    { icon: Clock, label: "施術時間", value: `${draft.menuDuration}分` },
+    { icon: CalendarDays, label: "日時", value: `${draft.date} ${draft.startTime}〜${draft.endTime}` },
+    { icon: User, label: "担当", value: draft.staffName ?? "指名なし" },
+  ];
+
   return (
     <div className="min-h-screen bg-[#faf8f5]">
       <ReserveHeader step={5} title="予約内容の確認" backHref="/reserve/info" />
-      <div className="max-w-md mx-auto p-4 space-y-4">
+      <div className="max-w-md mx-auto p-4 pb-8 space-y-4">
 
         {error && (
-          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm">{error}</div>
+          <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">{error}</div>
         )}
 
         {/* 予約サマリー */}
-        <div className="bg-white rounded-2xl border border-[#e8e1d9] divide-y divide-[#f0ebe4]">
-          {[
-            ["メニュー", draft.menuName],
-            ["施術時間", `${draft.menuDuration}分`],
-            ["日時", `${draft.date} ${draft.startTime} 〜 ${draft.endTime}`],
-            ["担当スタッフ", draft.staffName ?? "指名なし"],
-            ["区分", draft.isFirstVisit ? "初回" : "再診"],
-          ].map(([label, value]) => (
-            <div key={label} className="flex items-center justify-between px-4 py-3 text-sm">
-              <span className="text-[#8a7e72]">{label}</span>
-              <span className="font-medium text-[#2c2c2c]">{value}</span>
+        <div className="bg-white rounded-2xl border border-[#e8e1d9] overflow-hidden">
+          <div className="bg-gradient-to-r from-[#2d6a4f] to-[#3d8a6a] px-4 py-3">
+            <p className="text-white font-bold text-sm">ご予約内容</p>
+          </div>
+          <div className="divide-y divide-[#f0ebe4]">
+            {summaryItems.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="flex items-center gap-3 px-4 py-3">
+                <Icon size={16} className="text-[#2d6a4f] shrink-0" />
+                <span className="text-sm text-[#8a7e72] w-20 shrink-0">{label}</span>
+                <span className="text-sm font-medium text-[#2c2c2c] flex-1">{value}</span>
+              </div>
+            ))}
+            <div className="flex items-center justify-between px-4 py-4 bg-[#f9f6f2]">
+              <span className="font-medium text-[#5a4e45]">施術料金</span>
+              <span className="font-bold text-[#2d6a4f] text-2xl">{formatCurrency(draft.menuPrice ?? 0)}</span>
             </div>
-          ))}
-          <div className="flex items-center justify-between px-4 py-3 text-sm">
-            <span className="text-[#8a7e72]">料金</span>
-            <span className="font-bold text-[#2d6a4f] text-lg">{formatCurrency(draft.menuPrice ?? 0)}</span>
           </div>
         </div>
 
@@ -103,39 +118,41 @@ export default function ConfirmPage() {
                 checked={usePoints}
                 onChange={(e) => setUsePoints(e.target.checked)}
               />
-              <div>
-                <p className="font-medium text-[#2c2c2c]">
-                  ポイントを使用する（残高: {pointBalance}pt）
+              <div className="flex-1">
+                <p className="font-medium text-[#2c2c2c] text-sm">
+                  ポイントを使う <span className="text-[#2d6a4f]">（残 {pointBalance}pt）</span>
                 </p>
-                <p className="text-sm text-[#8a7e72]">
-                  {pointBalance}pt使用 → {formatCurrency(pointDiscount)}割引
+                <p className="text-xs text-[#8a7e72] mt-0.5">
+                  {pointBalance}pt → {formatCurrency(pointDiscount)}割引
                 </p>
               </div>
             </label>
             {usePoints && (
-              <div className="mt-3 text-right">
-                <p className="text-xs text-[#8a7e72]">割引後合計</p>
+              <div className="mt-3 bg-[#f0f9f5] rounded-xl px-4 py-3 flex justify-between items-center">
+                <p className="text-sm text-[#5a4e45]">割引後合計</p>
                 <p className="text-xl font-bold text-[#2d6a4f]">{formatCurrency(finalPrice)}</p>
               </div>
             )}
           </div>
         )}
 
-        <div className="bg-[#f0ebe4] rounded-xl p-4 text-sm text-[#5a4e45] space-y-1">
-          <p className="font-medium">ご確認ください</p>
-          <p>・当日のキャンセルはお控えください</p>
-          <p>・来院時に料金をお支払いください</p>
-          <p>・ポイントは予約確定時に付与されます</p>
+        {/* 注意事項 */}
+        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-4 text-sm text-amber-800 space-y-1.5">
+          <p className="font-bold">ご確認ください</p>
+          <p>・当日のキャンセルはお控えください（24時間前まで無料）</p>
+          <p>・料金はご来院時にお支払いください</p>
+          <p>・施術完了後にポイントが付与されます（1pt）</p>
         </div>
 
+        {/* CTA */}
         {session ? (
           <Button
             onClick={handleConfirm}
             disabled={loading}
-            className="w-full"
+            className="w-full h-14 text-base font-bold rounded-2xl"
             size="lg"
           >
-            {loading ? "予約中..." : "予約を確定する"}
+            {loading ? "予約中..." : "予約を確定する ✓"}
           </Button>
         ) : (
           <div className="space-y-3">
@@ -143,12 +160,12 @@ export default function ConfirmPage() {
               予約を確定するにはログインが必要です
             </div>
             <Link href="/login?callbackUrl=/reserve/confirm">
-              <Button className="w-full" size="lg">
-                ログインして予約を確定する
+              <Button className="w-full h-14 text-base font-bold rounded-2xl" size="lg">
+                ログインして予約する
               </Button>
             </Link>
             <Link href="/register">
-              <Button variant="outline" className="w-full" size="lg">
+              <Button variant="outline" className="w-full h-12 rounded-2xl" size="lg">
                 新規会員登録（無料）
               </Button>
             </Link>
