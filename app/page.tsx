@@ -1,18 +1,18 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Clock, ChevronRight, Check, Activity, Brain, Zap, AlignCenter, Heart, Dumbbell, Monitor, Wind } from "lucide-react";
+import { MapPin, Phone, Clock, ChevronRight, Check } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 const SYMPTOMS = [
-  { Icon: Activity,     label: "腰痛・ぎっくり腰", en: "Low Back Pain" },
-  { Icon: Wind,         label: "肩こり・首こり",   en: "Shoulder Stiffness" },
-  { Icon: Brain,        label: "頭痛・偏頭痛",     en: "Headache" },
-  { Icon: Zap,          label: "坐骨神経痛",       en: "Sciatica" },
-  { Icon: AlignCenter,  label: "猫背・姿勢改善",   en: "Posture Care" },
-  { Icon: Heart,        label: "産後ケア",         en: "Postnatal Care" },
-  { Icon: Dumbbell,     label: "スポーツ障害",     en: "Sports Injury" },
-  { Icon: Monitor,      label: "テレワーク疲れ",   en: "Work Fatigue" },
+  { label: "腰痛・ぎっくり腰", en: "Low Back Pain" },
+  { label: "肩こり・首こり",   en: "Shoulder Stiffness" },
+  { label: "頭痛・偏頭痛",     en: "Headache" },
+  { label: "坐骨神経痛",       en: "Sciatica" },
+  { label: "猫背・姿勢改善",   en: "Posture Care" },
+  { label: "産後ケア",         en: "Postnatal Care" },
+  { label: "スポーツ障害",     en: "Sports Injury" },
+  { label: "テレワーク疲れ",   en: "Work Fatigue" },
 ];
 
 const REASONS = [
@@ -129,20 +129,15 @@ export default async function TopPage() {
               <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-2">Symptoms</p>
               <h2 className="font-serif text-2xl md:text-3xl font-bold text-white">こんなお悩みはありませんか？</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10">
               {SYMPTOMS.map((s) => (
                 <Link
                   key={s.label}
                   href="/reserve"
-                  className="border border-white/15 hover:border-[#5C7FA3]/70 hover:bg-white/5 p-5 md:p-6 text-center transition-all duration-200 group"
+                  className="bg-[#2B3A52] hover:bg-[#243248] px-5 py-7 md:px-7 md:py-8 group transition-colors duration-200"
                 >
-                  <s.Icon
-                    size={22}
-                    strokeWidth={1.5}
-                    className="text-[#5C7FA3] mx-auto mb-3 group-hover:text-[#93BDD4] transition-colors"
-                  />
-                  <p className="text-white text-sm font-medium group-hover:text-[#93BDD4] transition-colors leading-snug">{s.label}</p>
-                  <p className="text-white/35 text-[10px] mt-1.5 tracking-widest uppercase">{s.en}</p>
+                  <p className="text-[#5C7FA3] text-[9px] tracking-[0.25em] uppercase mb-2.5 group-hover:text-[#93BDD4] transition-colors">{s.en}</p>
+                  <p className="text-white text-sm font-medium leading-snug">{s.label}</p>
                 </Link>
               ))}
             </div>
