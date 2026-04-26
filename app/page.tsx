@@ -62,6 +62,7 @@ export default async function TopPage() {
             <p className="text-[10px] text-[#7A7570] tracking-wide mt-0.5">Ogawa Seitai — 根本から改善する整体</p>
           </div>
           <nav className="flex items-center gap-1">
+            {/* PC nav */}
             <Link href="/login" className="hidden md:flex text-sm text-[#7A7570] hover:text-[#2B3A52] px-3 py-2 transition-colors">ログイン</Link>
             <Link href="/mypage" className="hidden md:flex text-sm text-[#7A7570] hover:text-[#2B3A52] px-3 py-2 transition-colors">マイページ</Link>
             <Link
@@ -70,7 +71,17 @@ export default async function TopPage() {
             >
               ネット予約
             </Link>
-            <Link href="/mypage" className="md:hidden text-sm text-[#7A7570] px-2 py-2 transition-colors">マイページ</Link>
+            {/* モバイル: 電話 + マイページ */}
+            {settings?.phone && (
+              <a
+                href={`tel:${settings.phone}`}
+                className="md:hidden p-2 text-[#5C7FA3]"
+                aria-label="電話で予約"
+              >
+                <Phone size={19} />
+              </a>
+            )}
+            <Link href="/mypage" className="md:hidden text-sm text-[#7A7570] px-2 py-2">マイページ</Link>
           </nav>
         </div>
       </header>
@@ -136,12 +147,12 @@ export default async function TopPage() {
                   href="/reserve"
                   className="bg-[#2B3A52] hover:bg-[#243248] px-5 py-7 md:px-7 md:py-8 group transition-colors duration-200"
                 >
-                  <p className="text-[#5C7FA3] text-[9px] tracking-[0.25em] uppercase mb-2.5 group-hover:text-[#93BDD4] transition-colors">{s.en}</p>
+                  <p className="text-[#5C7FA3] text-[10px] tracking-[0.2em] uppercase mb-2.5 group-hover:text-[#93BDD4] transition-colors">{s.en}</p>
                   <p className="text-white text-sm font-medium leading-snug">{s.label}</p>
                 </Link>
               ))}
             </div>
-            <p className="text-center text-white/60 text-xs mt-6">上記以外のお悩みもお気軽にご相談ください</p>
+            <p className="text-center text-white/50 text-xs mt-6">上記以外のお悩みもお気軽にご相談ください</p>
           </div>
         </section>
 
@@ -177,28 +188,32 @@ export default async function TopPage() {
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">施術メニュー・料金</h2>
               <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
             </div>
-            <div className="space-y-3">
-              {menus.map((menu) => (
-                <div key={menu.id} className="bg-white border border-[#DDD9D2] border-l-4 border-l-[#2B3A52] p-5 md:p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <h3 className="font-bold text-[#2B3A52] text-base mb-1">{menu.name}</h3>
-                      {menu.description && (
-                        <p className="text-sm text-[#7A7570] leading-relaxed">{menu.description}</p>
-                      )}
-                      <div className="flex items-center gap-1 mt-2">
-                        <Clock size={12} className="text-[#5C7FA3]" />
-                        <span className="text-xs text-[#7A7570]">{menu.duration}分</span>
+            {menus.length > 0 ? (
+              <div className="space-y-3">
+                {menus.map((menu) => (
+                  <div key={menu.id} className="bg-white border border-[#DDD9D2] border-l-4 border-l-[#2B3A52] p-5 md:p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <h3 className="font-bold text-[#2B3A52] text-base mb-1">{menu.name}</h3>
+                        {menu.description && (
+                          <p className="text-sm text-[#7A7570] leading-relaxed">{menu.description}</p>
+                        )}
+                        <div className="flex items-center gap-1 mt-2">
+                          <Clock size={12} className="text-[#5C7FA3]" />
+                          <span className="text-xs text-[#7A7570]">{menu.duration}分</span>
+                        </div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="font-bold text-[#2B3A52] text-2xl">{formatCurrency(menu.price)}</p>
+                        <p className="text-[10px] text-[#7A7570] mt-0.5">税込</p>
                       </div>
                     </div>
-                    <div className="text-right shrink-0">
-                      <p className="font-bold text-[#2B3A52] text-2xl">{formatCurrency(menu.price)}</p>
-                      <p className="text-[10px] text-[#7A7570] mt-0.5">税込</p>
-                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center text-[#7A7570] text-sm py-8">メニューは準備中です。お電話でお問い合わせください。</p>
+            )}
             <div className="text-center mt-8">
               <Link href="/reserve" className="inline-flex items-center gap-2 bg-[#2B3A52] text-white font-bold px-10 py-4 text-sm hover:bg-[#1e2d42] transition-colors">
                 このメニューで予約する
@@ -265,13 +280,13 @@ export default async function TopPage() {
                   bio: "お客様一人ひとりに寄り添ったきめ細やかな施術が強み。初めての方も安心してご来院いただけるよう、丁寧なコミュニケーションを大切にしています。",
                 },
               ].map((staff) => (
-                <div key={staff.name} className="bg-white border border-[#DDD9D2] p-8">
-                  <div className="flex items-start gap-5">
-                    <div className="w-16 h-16 rounded-full bg-[#2B3A52] flex items-center justify-center shrink-0">
-                      <span className="font-serif text-2xl font-bold text-white">{staff.initial}</span>
+                <div key={staff.name} className="bg-white border border-[#DDD9D2] p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 rounded-full bg-[#2B3A52] flex items-center justify-center shrink-0">
+                      <span className="font-serif text-xl font-bold text-white">{staff.initial}</span>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-[#2B3A52] text-lg leading-none">{staff.name}</h3>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-[#2B3A52] text-base leading-none">{staff.name}</h3>
                       <p className="text-xs text-[#5C7FA3] mt-1 mb-3">{staff.role}</p>
                       <div className="flex flex-wrap gap-1.5 mb-3">
                         {staff.certs.map((c) => (
@@ -281,7 +296,7 @@ export default async function TopPage() {
                           </span>
                         ))}
                       </div>
-                      <p className="text-sm text-[#7A7570] leading-relaxed">{staff.bio}</p>
+                      <p className="text-xs text-[#7A7570] leading-relaxed">{staff.bio}</p>
                     </div>
                   </div>
                 </div>
@@ -305,7 +320,7 @@ export default async function TopPage() {
                 { name: "田中さん（20代・女性）", symptom: "産後骨盤矯正", text: "産後の体のゆがみが気になっていましたが、骨盤矯正コースを受けてから腰の痛みが減り、体型も整ってきた気がします。" },
               ].map((r) => (
                 <div key={r.name} className="min-w-[280px] md:min-w-0 bg-white border border-[#DDD9D2] p-6 flex flex-col">
-                  <div className="flex items-center gap-1 mb-3">
+                  <div className="flex items-center gap-0.5 mb-3">
                     {[1,2,3,4,5].map((s) => <span key={s} className="text-amber-400 text-sm">★</span>)}
                   </div>
                   <span className="text-[10px] text-white bg-[#5C7FA3] px-2 py-0.5 self-start mb-3">{r.symptom}</span>
@@ -344,8 +359,73 @@ export default async function TopPage() {
           </div>
         </section>
 
+        {/* ─── アクセス ─── */}
+        <section className="bg-white py-20 md:py-28">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Access</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">アクセス</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div className="space-y-5">
+                {settings?.address && (
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#F7F4EE] border border-[#DDD9D2] flex items-center justify-center shrink-0 mt-0.5">
+                      <MapPin size={14} className="text-[#5C7FA3]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-[#7A7570] tracking-wider uppercase mb-1">住所</p>
+                      <p className="text-sm text-[#2B3A52] font-medium leading-relaxed">{settings.address}</p>
+                    </div>
+                  </div>
+                )}
+                {settings?.phone && (
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#F7F4EE] border border-[#DDD9D2] flex items-center justify-center shrink-0 mt-0.5">
+                      <Phone size={14} className="text-[#5C7FA3]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-[#7A7570] tracking-wider uppercase mb-1">電話番号</p>
+                      <a
+                        href={`tel:${settings.phone}`}
+                        className="text-sm text-[#2B3A52] font-medium hover:text-[#5C7FA3] transition-colors"
+                      >
+                        {settings.phone}
+                      </a>
+                    </div>
+                  </div>
+                )}
+                {settings && (
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-[#F7F4EE] border border-[#DDD9D2] flex items-center justify-center shrink-0 mt-0.5">
+                      <Clock size={14} className="text-[#5C7FA3]" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-[#7A7570] tracking-wider uppercase mb-1">営業時間</p>
+                      <p className="text-sm text-[#2B3A52] font-medium">{settings.openTime} 〜 {settings.closeTime}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* 地図プレースホルダー（Google マップリンク付き） */}
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(settings?.address ?? "小川整体院")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-52 md:h-full min-h-[180px] bg-[#F7F4EE] border border-[#DDD9D2] hover:bg-[#ECEAE4] transition-colors group"
+              >
+                <div className="text-center">
+                  <MapPin size={28} className="text-[#DDD9D2] group-hover:text-[#5C7FA3] mx-auto mb-2 transition-colors" />
+                  <p className="text-xs text-[#7A7570]">Google マップで開く</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* ─── フッター ─── */}
-        <footer className="bg-[#1B2940] py-10">
+        <footer className="bg-[#1B2940] pt-10 pb-28 md:pb-10">
           <div className="max-w-5xl mx-auto px-6 text-center">
             <p className="font-serif text-xl font-bold text-white mb-3">小川整体院</p>
             {settings?.address && (
@@ -354,13 +434,16 @@ export default async function TopPage() {
               </p>
             )}
             {settings?.phone && (
-              <p className="text-sm text-white/60 flex items-center justify-center gap-1.5 mb-1">
+              <a
+                href={`tel:${settings.phone}`}
+                className="text-sm text-white/60 hover:text-white/90 flex items-center justify-center gap-1.5 mb-1 transition-colors"
+              >
                 <Phone size={12} />{settings.phone}
-              </p>
+              </a>
             )}
             {settings && (
               <p className="text-sm text-white/60 flex items-center justify-center gap-1.5 mb-6">
-                <Clock size={12} />{settings.openTime} 〜 {settings.closeTime}（日曜定休）
+                <Clock size={12} />{settings.openTime} 〜 {settings.closeTime}
               </p>
             )}
             <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} 小川整体院. All rights reserved.</p>
