@@ -1,18 +1,18 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Clock, ChevronRight, Check } from "lucide-react";
+import { MapPin, Phone, Clock, ChevronRight, Check, Activity, Brain, Zap, AlignCenter, Heart, Dumbbell, Monitor, Wind } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 const SYMPTOMS = [
-  { icon: "🦴", label: "腰痛・ぎっくり腰" },
-  { icon: "💆", label: "肩こり・首こり" },
-  { icon: "🤕", label: "頭痛・偏頭痛" },
-  { icon: "🦵", label: "坐骨神経痛" },
-  { icon: "🧍", label: "猫背・姿勢改善" },
-  { icon: "🤱", label: "産後ケア" },
-  { icon: "💪", label: "スポーツ障害" },
-  { icon: "🖥️", label: "テレワーク疲れ" },
+  { Icon: Activity,     label: "腰痛・ぎっくり腰", en: "Low Back Pain" },
+  { Icon: Wind,         label: "肩こり・首こり",   en: "Shoulder Stiffness" },
+  { Icon: Brain,        label: "頭痛・偏頭痛",     en: "Headache" },
+  { Icon: Zap,          label: "坐骨神経痛",       en: "Sciatica" },
+  { Icon: AlignCenter,  label: "猫背・姿勢改善",   en: "Posture Care" },
+  { Icon: Heart,        label: "産後ケア",         en: "Postnatal Care" },
+  { Icon: Dumbbell,     label: "スポーツ障害",     en: "Sports Injury" },
+  { Icon: Monitor,      label: "テレワーク疲れ",   en: "Work Fatigue" },
 ];
 
 const REASONS = [
@@ -134,10 +134,15 @@ export default async function TopPage() {
                 <Link
                   key={s.label}
                   href="/reserve"
-                  className="bg-white/10 hover:bg-white/20 border border-white/20 p-4 text-center transition-all duration-200 group"
+                  className="border border-white/15 hover:border-[#5C7FA3]/70 hover:bg-white/5 p-5 md:p-6 text-center transition-all duration-200 group"
                 >
-                  <p className="text-2xl mb-2">{s.icon}</p>
-                  <p className="text-white text-sm font-medium group-hover:text-[#93BDD4] transition-colors">{s.label}</p>
+                  <s.Icon
+                    size={22}
+                    strokeWidth={1.5}
+                    className="text-[#5C7FA3] mx-auto mb-3 group-hover:text-[#93BDD4] transition-colors"
+                  />
+                  <p className="text-white text-sm font-medium group-hover:text-[#93BDD4] transition-colors leading-snug">{s.label}</p>
+                  <p className="text-white/35 text-[10px] mt-1.5 tracking-widest uppercase">{s.en}</p>
                 </Link>
               ))}
             </div>
