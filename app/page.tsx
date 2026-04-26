@@ -246,7 +246,7 @@ export default async function TopPage() {
               <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">スタッフ紹介</h2>
               <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   initial: "田",
@@ -261,6 +261,13 @@ export default async function TopPage() {
                   role: "鍼灸師・整体師",
                   certs: ["鍼灸師（国家資格）", "柔道整復師"],
                   bio: "産後ケア・骨盤矯正を専門とし、女性特有のお悩みに寄り添った施術を提供。「痛くない優しい整体」が得意です。",
+                },
+                {
+                  initial: "小",
+                  name: "小川 美千代",
+                  role: "整体師",
+                  certs: ["整体師認定資格"],
+                  bio: "お客様一人ひとりに寄り添ったきめ細やかな施術が強み。初めての方も安心してご来院いただけるよう、丁寧なコミュニケーションを大切にしています。",
                 },
               ].map((staff) => (
                 <div key={staff.name} className="bg-white border border-[#DDD9D2] p-8">
