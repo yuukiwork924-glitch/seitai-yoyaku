@@ -14,17 +14,17 @@ export default function ReserveHeader({ step, totalSteps = 5, backHref, title }:
   const steps = STEPS.slice(0, totalSteps);
 
   return (
-    <div className="bg-white border-b border-[#e8e1d9] sticky top-0 z-20">
+    <div className="bg-white border-b border-[#E8DDD0] sticky top-0 z-20">
       <div className="max-w-2xl mx-auto px-4 py-3">
         {/* Back arrow + title */}
         <div className="flex items-center gap-3 mb-4">
           <Link
             href={backHref ?? "/"}
-            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-[#f0ebe4] transition-colors active:scale-[0.97]"
+            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-[#F2EBE1] transition-colors active:scale-[0.97]"
           >
-            <ArrowLeft size={20} className="text-[#5a4e45]" />
+            <ArrowLeft size={20} className="text-[#6B5744]" />
           </Link>
-          <h1 className="text-base font-bold text-[#2c2c2c]">{title}</h1>
+          <h1 className="text-base font-bold text-[#2C1F14]">{title}</h1>
         </div>
 
         {/* Numbered step indicators */}
@@ -42,17 +42,17 @@ export default function ReserveHeader({ step, totalSteps = 5, backHref, title }:
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                       isCompleted
-                        ? "bg-[#2d6a4f] text-white"
+                        ? "bg-[#8C6239] text-white"
                         : isCurrent
-                        ? "bg-[#2d6a4f] text-white ring-4 ring-[#2d6a4f]/20"
-                        : "border-2 border-[#d5cfc9] text-[#b8afa6] bg-white"
+                        ? "bg-[#8C6239] text-white ring-4 ring-[#C8956B]/30"
+                        : "border-2 border-[#E8DDD0] text-[#b8afa6] bg-white"
                     }`}
                   >
                     {isCompleted ? <Check size={12} strokeWidth={3} /> : idx}
                   </div>
                   <p
                     className={`text-[10px] mt-1 text-center leading-tight ${
-                      isFuture ? "text-[#b8afa6]" : "text-[#2d6a4f] font-medium"
+                      isFuture ? "text-[#b8afa6]" : "text-[#8C6239] font-medium"
                     }`}
                   >
                     {label}
@@ -64,7 +64,7 @@ export default function ReserveHeader({ step, totalSteps = 5, backHref, title }:
                   <div className="flex-1 h-[1.5px] mt-[13px] mx-1">
                     <div
                       className={`h-full rounded-full transition-all ${
-                        isCompleted ? "bg-[#2d6a4f]" : "bg-[#e8e1d9]"
+                        isCompleted ? "bg-[#8C6239]" : "bg-[#E8DDD0]"
                       }`}
                     />
                   </div>

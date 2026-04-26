@@ -54,19 +54,19 @@ export default function DatetimePage() {
   };
 
   if (redirected || !draft.menuId) {
-    return <div className="min-h-screen bg-[#faf8f5] flex items-center justify-center text-[#8a7e72]">リダイレクト中...</div>;
+    return <div className="min-h-screen bg-[#FAF7F2] flex items-center justify-center text-[#6B5744]">リダイレクト中...</div>;
   }
 
   const today = startOfDay(new Date());
   const canPrev = !isBefore(startOfDay(selectedDate), addDays(today, 1));
 
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="min-h-screen bg-[#FAF7F2]">
       <ReserveHeader step={2} title="日時を選んでください" backHref="/reserve" />
       <div className="max-w-2xl mx-auto p-4 space-y-5">
 
         {/* 日付ナビ */}
-        <div className="bg-white rounded-2xl border border-[#e8e1d9] p-4 shadow-sm">
+        <div className="bg-white border border-[#E8DDD0] p-4 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <Button
               variant="ghost"
@@ -77,7 +77,7 @@ export default function DatetimePage() {
             >
               <ChevronLeft size={18} />
             </Button>
-            <p className="font-bold text-[#2c2c2c]">
+            <p className="font-bold text-[#2C1F14]">
               {format(selectedDate, "yyyy年M月d日（E）", { locale: ja })}
             </p>
             <Button
@@ -100,11 +100,11 @@ export default function DatetimePage() {
                   onClick={() => setSelectedDate(day)}
                   className={`flex flex-col items-center min-w-[48px] py-2.5 px-2 rounded-xl transition-all duration-200 shrink-0 ${
                     isSelected
-                      ? "bg-[#2d6a4f] text-white shadow-md scale-105"
-                      : "hover:bg-[#f0ebe4] text-[#5a4e45]"
+                      ? "bg-[#8C6239] text-white shadow-md scale-105"
+                      : "hover:bg-[#F2EBE1] text-[#6B5744]"
                   }`}
                 >
-                  <span className={`text-[10px] font-medium ${isSelected ? "text-white/80" : "text-[#8a7e72]"}`}>
+                  <span className={`text-[10px] font-medium ${isSelected ? "text-white/80" : "text-[#6B5744]"}`}>
                     {format(day, "E", { locale: ja })}
                   </span>
                   <span className="text-sm font-bold mt-0.5">{format(day, "d")}</span>
@@ -116,11 +116,11 @@ export default function DatetimePage() {
 
         {/* 時間スロット */}
         <div>
-          <h2 className="font-bold text-[#2c2c2c] mb-3">空き状況</h2>
+          <h2 className="font-bold text-[#2C1F14] mb-3">空き状況</h2>
           {loadingSlots ? (
-            <div className="text-center py-10 text-[#8a7e72]">読み込み中...</div>
+            <div className="text-center py-10 text-[#6B5744]">読み込み中...</div>
           ) : slots.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-[#e8e1d9] p-8 text-center text-[#8a7e72] shadow-sm">
+            <div className="bg-white border border-[#E8DDD0] p-8 text-center text-[#6B5744] shadow-sm">
               この日は予約を受け付けていません
             </div>
           ) : (
@@ -130,10 +130,10 @@ export default function DatetimePage() {
                   key={slot.startTime}
                   onClick={() => slot.available && selectSlot(slot)}
                   disabled={!slot.available}
-                  className={`py-4 px-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`py-4 px-2 text-sm font-medium transition-all duration-200 ${
                     slot.available
-                      ? "bg-white border border-[#2d6a4f] text-[#2d6a4f] hover:bg-[#2d6a4f] hover:text-white active:scale-[0.97] shadow-sm hover:shadow-md"
-                      : "bg-[#f5f1eb] text-[#b8afa6] border border-transparent cursor-not-allowed"
+                      ? "bg-white border border-[#8C6239] text-[#8C6239] hover:bg-[#8C6239] hover:text-white active:scale-[0.97] shadow-sm hover:shadow-md"
+                      : "bg-[#F2EBE1] text-[#b8afa6] border border-transparent cursor-not-allowed"
                   }`}
                 >
                   <span className={slot.available ? "" : "line-through"}>

@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    --background: #faf8f5;
-    --foreground: #2c2c2c;
+    --background: #FAF7F2;
+    --foreground: #2C1F14;
     --card: #ffffff;
-    --card-foreground: #2c2c2c;
-    --primary: #2d6a4f;
+    --card-foreground: #2C1F14;
+    --primary: #8C6239;
     --primary-foreground: #ffffff;
-    --secondary: #f0ebe4;
-    --secondary-foreground: #2c2c2c;
-    --muted: #f5f1eb;
+    --secondary: #F2EBE1;
+    --secondary-foreground: #2C1F14;
+    --muted: #F2EBE1;
     --muted-foreground: #8a7e72;
-    --accent: #a8c5a0;
-    --accent-foreground: #1a4433;
+    --accent: #D4A882;
+    --accent-foreground: #2C1F14;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
-    --border: #e0d8cf;
-    --input: #e8e1d9;
-    --ring: #2d6a4f;
+    --border: #E8DDD0;
+    --input: #E8DDD0;
+    --ring: #8C6239;
     --radius: 0.75rem;
   }
 
   * {
-    @apply border-[#e0d8cf];
+    @apply border-[#E8DDD0];
   }
 
   body {
-    @apply bg-[#faf8f5] text-[#2c2c2c];
+    @apply bg-[#FAF7F2] text-[#2C1F14];
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
       sans-serif;
     -webkit-tap-highlight-color: transparent;
@@ -43,24 +43,24 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[#2d6a4f] text-white font-medium px-6 py-3 rounded-xl
+    @apply bg-[#8C6239] text-white font-medium px-6 py-3 rounded-xl
            active:scale-95 transition-all duration-150
            disabled:opacity-50 disabled:pointer-events-none;
   }
 
   .btn-secondary {
-    @apply bg-[#f0ebe4] text-[#2c2c2c] font-medium px-6 py-3 rounded-xl
+    @apply bg-[#F2EBE1] text-[#2C1F14] font-medium px-6 py-3 rounded-xl
            active:scale-95 transition-all duration-150
-           border border-[#e0d8cf];
+           border border-[#E8DDD0];
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-[#e8e1d9] p-5;
+    @apply bg-white rounded-2xl shadow-sm border border-[#E8DDD0] p-5;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-xl border border-[#e0d8cf] bg-white
-           focus:outline-none focus:ring-2 focus:ring-[#2d6a4f] focus:border-transparent
-           text-[#2c2c2c] placeholder:text-[#b8afa6];
+    @apply w-full px-4 py-3 rounded-xl border border-[#E8DDD0] bg-white
+           focus:outline-none focus:ring-2 focus:ring-[#8C6239] focus:border-transparent
+           text-[#2C1F14] placeholder:text-[#b8afa6];
   }
 }
