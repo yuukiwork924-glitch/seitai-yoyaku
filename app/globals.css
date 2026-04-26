@@ -2,26 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #faf8f5;
+    --foreground: #2c2c2c;
+    --card: #ffffff;
+    --card-foreground: #2c2c2c;
+    --primary: #2d6a4f;
+    --primary-foreground: #ffffff;
+    --secondary: #f0ebe4;
+    --secondary-foreground: #2c2c2c;
+    --muted: #f5f1eb;
+    --muted-foreground: #8a7e72;
+    --accent: #a8c5a0;
+    --accent-foreground: #1a4433;
+    --destructive: #dc2626;
+    --destructive-foreground: #ffffff;
+    --border: #e0d8cf;
+    --input: #e8e1d9;
+    --ring: #2d6a4f;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-[#e0d8cf];
+  }
+
+  body {
+    @apply bg-[#faf8f5] text-[#2c2c2c];
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
+      sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* スムーズスクロール */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+@layer components {
+  .btn-primary {
+    @apply bg-[#2d6a4f] text-white font-medium px-6 py-3 rounded-xl
+           active:scale-95 transition-all duration-150
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .btn-secondary {
+    @apply bg-[#f0ebe4] text-[#2c2c2c] font-medium px-6 py-3 rounded-xl
+           active:scale-95 transition-all duration-150
+           border border-[#e0d8cf];
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-[#e8e1d9] p-5;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-[#e0d8cf] bg-white
+           focus:outline-none focus:ring-2 focus:ring-[#2d6a4f] focus:border-transparent
+           text-[#2c2c2c] placeholder:text-[#b8afa6];
   }
 }

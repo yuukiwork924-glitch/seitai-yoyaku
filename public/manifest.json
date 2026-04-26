@@ -1,0 +1,36 @@
+{
+  "name": "小川クリニック",
+  "short_name": "整体院予約",
+  "description": "小川クリニックの予約・会員管理システム",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#2d6a4f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "予約する",
+      "url": "/reserve",
+      "description": "施術を予約する"
+    },
+    {
+      "name": "マイページ",
+      "url": "/mypage",
+      "description": "予約履歴・ポイント確認"
+    }
+  ]
+}
