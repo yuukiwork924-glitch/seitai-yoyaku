@@ -40,11 +40,12 @@ export async function getAvailableSlots(
   });
 
   // スタッフシフトチェック
+  // シフト未設定(schedule=null)の場合は院の営業時間を適用。isOff=trueのときのみ除外。
   if (staffId) {
     const schedule = await prisma.staffSchedule.findUnique({
       where: { staffId_date: { staffId, date } },
     });
-    if (!schedule || schedule.isOff) return [];
+    if (schedule?.isOff) return [];
   }
 
   const slots: TimeSlot[] = [];
