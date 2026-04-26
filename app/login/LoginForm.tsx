@@ -56,7 +56,7 @@ export default function LoginForm() {
         {/* Text overlay */}
         <div className="relative flex flex-col justify-end p-12 text-white">
           <Link href="/" className="block mb-auto pt-6">
-            <p className="font-serif text-2xl font-bold tracking-wide">小川クリニック</p>
+            <p className="font-serif text-2xl font-bold tracking-wide">小川整体院</p>
           </Link>
           <div>
             <h2 className="font-serif text-4xl font-bold leading-snug mb-4 text-[#2C1F14]">
@@ -74,7 +74,7 @@ export default function LoginForm() {
       <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12">
         {/* Mobile header link */}
         <Link href="/" className="md:hidden font-serif text-lg font-bold text-[#2C1F14] mb-8 self-start">
-          小川クリニック
+          小川整体院
         </Link>
 
         <div className="w-full max-w-md bg-white border border-[#E8DDD0] p-10 shadow-sm">

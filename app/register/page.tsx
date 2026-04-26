@@ -59,7 +59,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#faf8f5] flex flex-col">
       <header className="bg-white border-b border-[#e8e1d9] px-4 py-3">
-        <Link href="/" className="text-lg font-bold text-[#2d6a4f]">小川クリニック</Link>
+        <Link href="/" className="text-lg font-bold text-[#2d6a4f]">小川整体院</Link>
       </header>
 
       <div className="flex-1 flex items-center justify-center p-4">

@@ -159,7 +159,7 @@ async function main() {
   if (!existing) {
     settings = await prisma.businessSettings.create({
       data: {
-        clinicName: "小川クリニック",
+        clinicName: "小川整体院",
         openTime: "09:00",
         closeTime: "19:00",
         slotIntervalMin: 60,

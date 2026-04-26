@@ -6,13 +6,13 @@ import { Noto_Serif_JP } from "next/font/google";
 const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: "小川クリニック | 予約システム",
+  title: "小川整体院 | 予約システム",
   description: "体の不調を根本から改善。オンライン予約・会員管理システム。",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "小川クリニック",
+    title: "小川整体院",
   },
 };
 

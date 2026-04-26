@@ -15,7 +15,7 @@ export default async function TopPage() {
       {/* ─── HEADER ─── */}
       <header className="bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8DDD0] sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-          <p className="font-serif text-base font-bold text-[#2C1F14] tracking-wide">小川クリニック</p>
+          <p className="font-serif text-base font-bold text-[#2C1F14] tracking-wide">小川整体院</p>
           <nav className="flex items-center gap-1">
             <Link
               href="/login"
@@ -62,7 +62,7 @@ export default async function TopPage() {
           {/* Content */}
           <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
             <p className="text-xs tracking-[0.2em] text-[#D4A882] uppercase mb-6 font-medium">
-              Ogawa Clinic — Premium Bodywork
+              Ogawa Seitai — Premium Bodywork
             </p>
             <h1 className="font-serif text-4xl md:text-6xl font-bold text-white leading-snug mb-6">
               あなたの体を<br />ていねいにほぐします
@@ -118,7 +118,7 @@ export default async function TopPage() {
               <div className="w-full md:w-[45%] bg-[#FAF7F2] md:-ml-12 md:mt-12 md:mb-12 z-10 p-10 md:p-14 flex flex-col justify-center shadow-sm">
                 <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">About Us</p>
                 <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14] leading-snug mb-2">
-                  小川クリニックについて
+                  小川整体院について
                 </h2>
                 <div className="w-12 h-0.5 bg-[#8C6239] mt-3 mb-6" />
                 <p className="text-[#6B5744] leading-relaxed mb-8 text-sm">
@@ -277,7 +277,7 @@ export default async function TopPage() {
         {/* ─── FOOTER ─── */}
         <footer className="bg-[#2C1F14] py-12">
           <div className="max-w-6xl mx-auto px-6 text-center">
-            <p className="font-serif text-2xl font-bold text-white mb-4">小川クリニック</p>
+            <p className="font-serif text-2xl font-bold text-white mb-4">小川整体院</p>
             {settings?.address && (
               <p className="text-sm text-white/70 flex items-center justify-center gap-1.5 mb-1">
                 <MapPin size={13} />
@@ -296,7 +296,7 @@ export default async function TopPage() {
                 {settings.openTime} 〜 {settings.closeTime}（日曜定休）
               </p>
             )}
-            <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} 小川クリニック. All rights reserved.</p>
+            <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} 小川整体院. All rights reserved.</p>
           </div>
         </footer>
       </main>

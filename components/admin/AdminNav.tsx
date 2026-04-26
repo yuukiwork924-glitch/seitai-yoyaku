@@ -58,7 +58,7 @@ export default function AdminNav() {
               <span className="text-white text-xs font-bold">管</span>
             </div>
             <div>
-              <p className="text-sm font-bold text-[#2c2c2c]">小川クリニック</p>
+              <p className="text-sm font-bold text-[#2c2c2c]">小川整体院</p>
               <p className="text-xs text-[#8a7e72]">管理パネル</p>
             </div>
           </div>

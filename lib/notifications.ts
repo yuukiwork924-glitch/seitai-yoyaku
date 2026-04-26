@@ -65,7 +65,7 @@ export async function sendReservationConfirmed(data: ReservationMailData) {
 キャンセルはマイページからお手続きください。
 
 ───────────────
-小川クリニック
+小川整体院
 `;
   await sendMail(data.to, subject, body);
 }
@@ -83,7 +83,7 @@ export async function sendReservationReminder(data: ReservationMailData) {
 お時間になりましたらお越しください。
 
 ───────────────
-小川クリニック
+小川整体院
 `;
   await sendMail(data.to, subject, body);
 }
@@ -100,7 +100,7 @@ export async function sendReservationCancelled(data: ReservationMailData) {
 またのご利用をお待ちしております。
 
 ───────────────
-小川クリニック
+小川整体院
 `;
   await sendMail(data.to, subject, body);
 }

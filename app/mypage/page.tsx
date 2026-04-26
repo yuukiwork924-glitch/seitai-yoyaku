@@ -46,7 +46,7 @@ export default async function MypagePage() {
     <div className="min-h-screen bg-[#FAF7F2]">
       <header className="bg-white border-b border-[#E8DDD0] sticky top-0 z-20">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="font-serif text-lg font-bold text-[#2C1F14]">小川クリニック</Link>
+          <Link href="/" className="font-serif text-lg font-bold text-[#2C1F14]">小川整体院</Link>
           <MypageSignOut />
         </div>
       </header>

@@ -1,7 +1,7 @@
 {
-  "name": "小川クリニック",
+  "name": "小川整体院",
   "short_name": "整体院予約",
-  "description": "小川クリニックの予約・会員管理システム",
+  "description": "小川整体院の予約・会員管理システム",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF7F2",
