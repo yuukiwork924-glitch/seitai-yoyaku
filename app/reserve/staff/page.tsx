@@ -35,7 +35,7 @@ export default function StaffPage() {
   return (
     <div className="min-h-screen bg-[#faf8f5]">
       <ReserveHeader step={3} title="スタッフを選んでください" backHref="/reserve/datetime" />
-      <div className="max-w-md mx-auto p-4 space-y-3">
+      <div className="max-w-2xl mx-auto p-4 space-y-3">
         {/* 指名なし */}
         <button
           onClick={() => select(undefined, undefined)}

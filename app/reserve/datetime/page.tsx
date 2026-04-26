@@ -64,7 +64,7 @@ export default function DatetimePage() {
   return (
     <div className="min-h-screen bg-[#faf8f5]">
       <ReserveHeader step={2} title="日時を選んでください" backHref="/reserve" />
-      <div className="max-w-md mx-auto p-4 space-y-4">
+      <div className="max-w-2xl mx-auto p-4 space-y-4">
 
         {/* 日付ナビ */}
         <div className="bg-white rounded-2xl border border-[#e8e1d9] p-4">

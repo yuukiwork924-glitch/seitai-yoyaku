@@ -45,13 +45,15 @@ export default async function MypagePage() {
   return (
     <div className="min-h-screen bg-[#faf8f5]">
       <header className="bg-white border-b border-[#e8e1d9] sticky top-0 z-20">
-        <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="text-lg font-bold text-[#2d6a4f]">小川クリニック</Link>
           <MypageSignOut />
         </div>
       </header>
 
-      <main className="max-w-md mx-auto p-4 space-y-4">
+      <main className="max-w-4xl mx-auto p-4 space-y-4 md:grid md:grid-cols-3 md:gap-6 md:items-start md:space-y-0">
+        {/* 左カラム（PC）: ユーザー情報 + メニュー */}
+        <div className="md:col-span-1 space-y-4">
         {/* ユーザー情報 */}
         <div className="bg-gradient-to-br from-[#2d6a4f] to-[#3d8a6a] rounded-2xl p-5 text-white">
           <p className="text-lg font-bold">{user?.name ?? ""} さん</p>
@@ -102,7 +104,7 @@ export default async function MypagePage() {
         )}
 
         {/* メニュー */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-1">
           {[
             { href: "/reserve", label: "予約する", icon: Calendar, color: "bg-[#2d6a4f]" },
             { href: "/mypage/points", label: "ポイント履歴", icon: Star, color: "bg-amber-500" },
@@ -124,7 +126,7 @@ export default async function MypagePage() {
           })}
           <Link
             href="/reserve"
-            className="bg-white rounded-2xl border border-[#e8e1d9] p-4 flex items-center gap-3 hover:shadow-sm transition-shadow col-span-1"
+            className="bg-white rounded-2xl border border-[#e8e1d9] p-4 flex items-center gap-3 hover:shadow-sm transition-shadow"
           >
             <div className="w-10 h-10 bg-[#8a7e72] rounded-xl flex items-center justify-center">
               <ChevronRight size={18} className="text-white" />
@@ -133,6 +135,11 @@ export default async function MypagePage() {
           </Link>
         </div>
 
+        </div>{/* end 左カラム */}
+
+        {/* 右カラム（PC）: 次回予約 + 履歴 */}
+        <div className="md:col-span-2 space-y-4">
+        {/* 次回の予約（PC右カラムに再配置） */}
         {/* 直近の履歴 */}
         {recentReservations.length > 0 && (
           <Card>
@@ -161,6 +168,7 @@ export default async function MypagePage() {
             </CardContent>
           </Card>
         )}
+        </div>{/* end 右カラム */}
       </main>
     </div>
   );

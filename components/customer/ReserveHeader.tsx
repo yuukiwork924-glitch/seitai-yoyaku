@@ -13,7 +13,7 @@ const STEPS = ["メニュー", "日時", "スタッフ", "情報", "確認"];
 export default function ReserveHeader({ step, totalSteps = 5, backHref, title }: Props) {
   return (
     <div className="bg-white border-b border-[#e8e1d9] sticky top-0 z-20">
-      <div className="max-w-md mx-auto px-4 py-3">
+      <div className="max-w-2xl mx-auto px-4 py-3">
         <div className="flex items-center gap-3 mb-3">
           {backHref ? (
             <Link href={backHref} className="p-1 rounded-lg hover:bg-[#f0ebe4] transition-colors">
