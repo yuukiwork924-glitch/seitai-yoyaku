@@ -49,10 +49,10 @@ export default async function TopPage() {
         {/* ─── HERO ─── */}
         <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1400&auto=format&fit=crop"
-            alt="温かみのある施術の様子"
+            src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1400&auto=format&fit=crop"
+            alt="丁寧な整体施術の様子"
             width={1400}
-            height={900}
+            height={933}
             className="absolute inset-0 w-full h-full object-cover object-center"
             priority
           />
@@ -107,10 +107,10 @@ export default async function TopPage() {
               <div className="w-full md:w-[55%] relative aspect-[4/3] md:aspect-auto overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=800&auto=format&fit=crop"
-                  alt="清潔感のある施術室の内装"
+                  alt="丁寧な肩・首の施術"
                   width={800}
-                  height={600}
-                  className="w-full h-full object-cover"
+                  height={533}
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 
