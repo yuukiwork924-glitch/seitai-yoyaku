@@ -14,26 +14,32 @@ export default async function TopPage() {
     <div className="min-h-screen bg-[#FAF7F2]">
       {/* ─── HEADER ─── */}
       <header className="bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8DDD0] sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
           <p className="font-serif text-base font-bold text-[#2C1F14] tracking-wide">小川クリニック</p>
           <nav className="flex items-center gap-1">
             <Link
               href="/login"
-              className="text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
+              className="hidden md:flex text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
             >
               ログイン
             </Link>
             <Link
               href="/mypage"
-              className="text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
+              className="hidden md:flex text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
             >
               マイページ
             </Link>
             <Link
               href="/reserve"
-              className="text-sm bg-[#8C6239] text-white px-5 py-2 rounded-lg hover:bg-[#7a5430] transition-colors ml-2"
+              className="hidden md:flex text-sm bg-[#8C6239] text-white px-5 py-2 rounded-lg hover:bg-[#7a5430] transition-colors ml-2"
             >
               予約する
+            </Link>
+            <Link
+              href="/mypage"
+              className="md:hidden text-sm text-[#6B5744] px-3 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
+            >
+              マイページ
             </Link>
           </nav>
         </div>

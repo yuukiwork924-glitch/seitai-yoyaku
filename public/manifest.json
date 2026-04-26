@@ -4,8 +4,8 @@
   "description": "小川クリニックの予約・会員管理システム",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#faf8f5",
-  "theme_color": "#2d6a4f",
+  "background_color": "#FAF7F2",
+  "theme_color": "#8C6239",
   "orientation": "portrait",
   "icons": [
     {
