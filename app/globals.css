@@ -4,23 +4,23 @@
 
 @layer base {
   :root {
-    --background: #FAF7F2;
-    --foreground: #2C1F14;
+    --background: #F7F4EE;
+    --foreground: #2A2A2A;
     --card: #ffffff;
-    --card-foreground: #2C1F14;
-    --primary: #8C6239;
+    --card-foreground: #2A2A2A;
+    --primary: #2B3A52;
     --primary-foreground: #ffffff;
-    --secondary: #F2EBE1;
-    --secondary-foreground: #2C1F14;
-    --muted: #F2EBE1;
-    --muted-foreground: #8a7e72;
-    --accent: #D4A882;
-    --accent-foreground: #2C1F14;
+    --secondary: #ECEAE4;
+    --secondary-foreground: #2A2A2A;
+    --muted: #ECEAE4;
+    --muted-foreground: #7A7570;
+    --accent: #5C7FA3;
+    --accent-foreground: #ffffff;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
-    --border: #E8DDD0;
-    --input: #E8DDD0;
-    --ring: #8C6239;
+    --border: #DDD9D2;
+    --input: #DDD9D2;
+    --ring: #2B3A52;
     --radius: 0.75rem;
   }
 
@@ -29,7 +29,7 @@
   }
 
   body {
-    @apply bg-[#FAF7F2] text-[#2C1F14];
+    @apply bg-[#F7F4EE] text-[#2A2A2A];
     font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
       sans-serif;
     -webkit-tap-highlight-color: transparent;

@@ -1,8 +1,49 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Clock, ChevronRight, ChevronDown, Star } from "lucide-react";
+import { MapPin, Phone, Clock, ChevronRight, Check } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+
+const SYMPTOMS = [
+  { icon: "🦴", label: "腰痛・ぎっくり腰" },
+  { icon: "💆", label: "肩こり・首こり" },
+  { icon: "🤕", label: "頭痛・偏頭痛" },
+  { icon: "🦵", label: "坐骨神経痛" },
+  { icon: "🧍", label: "猫背・姿勢改善" },
+  { icon: "🤱", label: "産後ケア" },
+  { icon: "💪", label: "スポーツ障害" },
+  { icon: "🖥️", label: "テレワーク疲れ" },
+];
+
+const REASONS = [
+  {
+    num: "01",
+    title: "根本改善へのアプローチ",
+    body: "痛みの出ている場所だけでなく、原因となる筋骨格のバランスを整え、再発しにくい体づくりを目指します。",
+  },
+  {
+    num: "02",
+    title: "丁寧なカウンセリング",
+    body: "初回は問診・姿勢分析に十分な時間を確保。お体の状態を正確に把握した上で施術方針をご説明します。",
+  },
+  {
+    num: "03",
+    title: "完全予約制・個室対応",
+    body: "待ち時間なし、プライベート空間でリラックスして施術を受けていただけます。",
+  },
+  {
+    num: "04",
+    title: "15年以上の施術実績",
+    body: "累計3,000名以上のお客様を担当。幅広い症状に対応できる確かな技術と経験があります。",
+  },
+];
+
+const STEPS = [
+  { step: "01", title: "ご予約", body: "お電話またはWEBから24時間受付。初めての方も安心してご連絡ください。" },
+  { step: "02", title: "問診・カウンセリング", body: "お体の状態・お悩み・生活習慣などをヒアリング。施術方針をご説明します。" },
+  { step: "03", title: "施術", body: "一人ひとりに合わせたオーダーメイドの整体施術を行います。" },
+  { step: "04", title: "アフターケア", body: "施術後のセルフケア方法をお伝えし、次回の施術プランをご提案します。" },
+];
 
 export default async function TopPage() {
   const [menus, settings] = await Promise.all([
@@ -11,261 +52,229 @@ export default async function TopPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#F7F4EE]">
+
       {/* ─── HEADER ─── */}
-      <header className="bg-[#FAF7F2]/95 backdrop-blur-sm border-b border-[#E8DDD0] sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-          <p className="font-serif text-base font-bold text-[#2C1F14] tracking-wide">小川整体院</p>
+      <header className="bg-white border-b border-[#DDD9D2] sticky top-0 z-30 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between gap-4">
+          <div>
+            <p className="font-serif text-lg font-bold text-[#2B3A52] leading-none">小川整体院</p>
+            <p className="text-[10px] text-[#7A7570] tracking-wide mt-0.5">Ogawa Seitai — 根本から改善する整体</p>
+          </div>
           <nav className="flex items-center gap-1">
-            <Link
-              href="/login"
-              className="hidden md:flex text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
-            >
-              ログイン
-            </Link>
-            <Link
-              href="/mypage"
-              className="hidden md:flex text-sm text-[#6B5744] hover:text-[#8C6239] px-4 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
-            >
-              マイページ
-            </Link>
+            <Link href="/login" className="hidden md:flex text-sm text-[#7A7570] hover:text-[#2B3A52] px-3 py-2 transition-colors">ログイン</Link>
+            <Link href="/mypage" className="hidden md:flex text-sm text-[#7A7570] hover:text-[#2B3A52] px-3 py-2 transition-colors">マイページ</Link>
             <Link
               href="/reserve"
-              className="hidden md:flex text-sm bg-[#8C6239] text-white px-5 py-2 rounded-lg hover:bg-[#7a5430] transition-colors ml-2"
+              className="hidden md:flex items-center gap-1.5 bg-[#2B3A52] text-white text-sm font-medium px-5 py-2.5 hover:bg-[#1e2d42] transition-colors ml-2"
             >
-              予約する
+              ネット予約
             </Link>
-            <Link
-              href="/mypage"
-              className="md:hidden text-sm text-[#6B5744] px-3 py-2 rounded-lg hover:bg-[#F2EBE1] transition-colors"
-            >
-              マイページ
-            </Link>
+            <Link href="/mypage" className="md:hidden text-sm text-[#7A7570] px-2 py-2 transition-colors">マイページ</Link>
           </nav>
         </div>
       </header>
 
       <main>
         {/* ─── HERO ─── */}
-        <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
+        <section className="relative h-[100svh] min-h-[580px] overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=1400&auto=format&fit=crop"
-            alt="丁寧な整体施術の様子"
+            src="https://images.unsplash.com/photo-1699523229487-bddb965a3307?w=1400&auto=format&fit=crop"
+            alt="白衣の施術者による本格整体"
             width={1400}
-            height={933}
+            height={2097}
             className="absolute inset-0 w-full h-full object-cover object-center"
             priority
           />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2C1F14]/60 to-[#2C1F14]/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1B2940]/80 via-[#1B2940]/50 to-transparent" />
 
-          {/* Content */}
-          <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-            <p className="text-xs tracking-[0.2em] text-[#D4A882] uppercase mb-6 font-medium">
-              Ogawa Seitai — Premium Bodywork
-            </p>
-            <h1 className="font-serif text-4xl md:text-6xl font-bold text-white leading-snug mb-6">
-              あなたの体を<br />ていねいにほぐします
-            </h1>
-            <div className="w-16 h-px bg-[#C8956B] mx-auto mb-8" />
-            <Link
-              href="/reserve"
-              className="inline-flex items-center gap-2 border-2 border-white text-white px-10 py-4 rounded-none text-sm font-medium tracking-widest hover:bg-white hover:text-[#2C1F14] transition-all duration-300"
-            >
-              ご予約はこちら
-            </Link>
-
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-              <ChevronDown size={24} className="text-white/60" />
+          <div className="relative h-full flex flex-col justify-center px-6 md:px-16 max-w-6xl mx-auto">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 mb-6">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#5C7FA3]" />
+                <span className="text-xs text-white/90 tracking-widest font-medium">完全予約制・個室施術</span>
+              </div>
+              <h1 className="font-serif text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+                痛みの根本から<br />改善する整体
+              </h1>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-8">
+                腰痛・肩こり・頭痛など、<br className="md:hidden" />お体のお悩みを丁寧に診ます。
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/reserve"
+                  className="inline-flex items-center justify-center gap-2 bg-[#2B3A52] text-white font-bold px-8 py-4 text-sm hover:bg-[#1e2d42] transition-colors"
+                >
+                  ネット予約（24時間受付）
+                  <ChevronRight size={16} />
+                </Link>
+                {settings?.phone && (
+                  <a
+                    href={`tel:${settings.phone}`}
+                    className="inline-flex items-center justify-center gap-2 border-2 border-white/70 text-white font-medium px-8 py-4 text-sm hover:bg-white/10 transition-colors"
+                  >
+                    <Phone size={15} />
+                    {settings.phone}
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ─── PHILOSOPHY ─── */}
-        <section className="py-24 md:py-32">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">Philosophy</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14] mb-4">
-              体と心のバランスを整える
-            </h2>
-            <div className="w-12 h-0.5 bg-[#8C6239] mx-auto mt-3 mb-8" />
-            <p className="text-[#6B5744] leading-relaxed text-base max-w-2xl mx-auto">
-              私たちは「体の不調を根本から改善する」をモットーに、お一人おひとりに合わせた施術をご提供しています。
-              丁寧なカウンセリングを通じて痛みの原因を見極め、再発しない体づくりをともに目指します。
-              忙しい日常の中に、ほっと息をつける時間をお届けします。
-            </p>
-            <div className="w-full h-px bg-[#E8DDD0] mt-16" />
+        {/* ─── お悩み症状 ─── */}
+        <section className="bg-[#2B3A52] py-14 md:py-20">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-10">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-2">Symptoms</p>
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-white">こんなお悩みはありませんか？</h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {SYMPTOMS.map((s) => (
+                <Link
+                  key={s.label}
+                  href="/reserve"
+                  className="bg-white/10 hover:bg-white/20 border border-white/20 p-4 text-center transition-all duration-200 group"
+                >
+                  <p className="text-2xl mb-2">{s.icon}</p>
+                  <p className="text-white text-sm font-medium group-hover:text-[#93BDD4] transition-colors">{s.label}</p>
+                </Link>
+              ))}
+            </div>
+            <p className="text-center text-white/60 text-xs mt-6">上記以外のお悩みもお気軽にご相談ください</p>
           </div>
         </section>
 
-        {/* ─── ABOUT ─── */}
-        <section className="py-20 md:py-28">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row md:items-stretch gap-0 md:gap-0">
-              {/* Image — 55% */}
-              <div className="w-full md:w-[55%] relative aspect-[4/3] md:aspect-auto overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1519824145371-296894a0daa9?w=800&auto=format&fit=crop"
-                  alt="丁寧な肩・首の施術"
-                  width={800}
-                  height={533}
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
-
-              {/* Text — 45%, overlapping slightly on PC */}
-              <div className="w-full md:w-[45%] bg-[#FAF7F2] md:-ml-12 md:mt-12 md:mb-12 z-10 p-10 md:p-14 flex flex-col justify-center shadow-sm">
-                <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">About Us</p>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14] leading-snug mb-2">
-                  小川整体院について
-                </h2>
-                <div className="w-12 h-0.5 bg-[#8C6239] mt-3 mb-6" />
-                <p className="text-[#6B5744] leading-relaxed mb-8 text-sm">
-                  地域に根ざした整体院として、15年以上の施術経験を積んでまいりました。
-                  丁寧なヒアリングと確かな技術で、多くの方の体のお悩みを解決してきた実績があります。
-                </p>
-
-                {/* Stats */}
-                <div className="flex gap-8">
-                  <div className="text-center">
-                    <p className="font-serif text-3xl font-bold text-[#8C6239]">15<span className="text-base font-sans">年+</span></p>
-                    <p className="text-xs text-[#6B5744] mt-1">施術歴</p>
+        {/* ─── 選ばれる理由 ─── */}
+        <section className="py-20 md:py-28 bg-[#F7F4EE]">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-14">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Why Choose Us</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">選ばれる理由</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {REASONS.map((r) => (
+                <div key={r.num} className="bg-white border border-[#DDD9D2] p-8 flex gap-5">
+                  <div className="shrink-0">
+                    <p className="font-serif text-3xl font-bold text-[#DDD9D2] leading-none">{r.num}</p>
                   </div>
-                  <div className="text-center">
-                    <p className="font-serif text-3xl font-bold text-[#8C6239]">3,000<span className="text-base font-sans">+</span></p>
-                    <p className="text-xs text-[#6B5744] mt-1">累計来院数</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="font-serif text-3xl font-bold text-[#8C6239]">92<span className="text-base font-sans">%</span></p>
-                    <p className="text-xs text-[#6B5744] mt-1">リピート率</p>
+                  <div>
+                    <h3 className="font-bold text-[#2B3A52] text-base mb-2">{r.title}</h3>
+                    <p className="text-sm text-[#7A7570] leading-relaxed">{r.body}</p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* ─── SERVICES ─── */}
-        <section className="bg-[#FAF7F2] py-20 md:py-28">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">Menu</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14]">施術メニュー</h2>
-              <div className="w-12 h-0.5 bg-[#8C6239] mx-auto mt-3 mb-0" />
+        {/* ─── 施術メニュー ─── */}
+        <section className="bg-[#ECEAE4] py-20 md:py-28">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Menu & Price</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">施術メニュー・料金</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="space-y-3">
               {menus.map((menu) => (
-                <div
-                  key={menu.id}
-                  className="bg-white border border-[#E8DDD0] border-l-4 border-l-[#C8956B] p-7 hover:shadow-sm transition-shadow"
-                >
+                <div key={menu.id} className="bg-white border border-[#DDD9D2] border-l-4 border-l-[#2B3A52] p-5 md:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <h3 className="font-serif font-bold text-[#2C1F14] text-lg leading-snug mb-2">{menu.name}</h3>
+                      <h3 className="font-bold text-[#2B3A52] text-base mb-1">{menu.name}</h3>
                       {menu.description && (
-                        <p className="text-sm text-[#6B5744] leading-relaxed mb-3">{menu.description}</p>
+                        <p className="text-sm text-[#7A7570] leading-relaxed">{menu.description}</p>
                       )}
-                      <p className="text-xs text-[#6B5744] flex items-center gap-1">
-                        <Clock size={11} />{menu.duration}分
-                      </p>
+                      <div className="flex items-center gap-1 mt-2">
+                        <Clock size={12} className="text-[#5C7FA3]" />
+                        <span className="text-xs text-[#7A7570]">{menu.duration}分</span>
+                      </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="font-bold text-[#8C6239] text-2xl">{formatCurrency(menu.price)}</p>
-                      <p className="text-[10px] text-[#6B5744] mt-0.5">税込</p>
+                      <p className="font-bold text-[#2B3A52] text-2xl">{formatCurrency(menu.price)}</p>
+                      <p className="text-[10px] text-[#7A7570] mt-0.5">税込</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="text-center mt-10">
-              <Link
-                href="/reserve"
-                className="inline-flex items-center gap-2 bg-[#8C6239] text-white px-10 py-4 text-sm font-medium tracking-wide hover:bg-[#7a5430] transition-colors"
-              >
-                ご予約する
+            <div className="text-center mt-8">
+              <Link href="/reserve" className="inline-flex items-center gap-2 bg-[#2B3A52] text-white font-bold px-10 py-4 text-sm hover:bg-[#1e2d42] transition-colors">
+                このメニューで予約する
                 <ChevronRight size={16} />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ─── STAFF ─── */}
-        <section className="bg-[#F2EBE1] py-20 md:py-28">
-          <div className="max-w-6xl mx-auto px-6">
+        {/* ─── 来院の流れ ─── */}
+        <section className="py-20 md:py-28 bg-[#F7F4EE]">
+          <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-14">
-              <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">Therapist</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14]">スタッフ紹介</h2>
-              <div className="w-12 h-0.5 bg-[#8C6239] mx-auto mt-3 mb-0" />
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Flow</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">来院の流れ</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Staff 1 */}
-              <div className="bg-white p-8 flex flex-col items-center text-center shadow-sm">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[#8C6239] to-[#C8956B] flex items-center justify-center mb-6 shadow-sm">
-                  <span className="font-serif text-4xl font-bold text-white">田</span>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {STEPS.map((s, i) => (
+                <div key={s.step} className="relative text-center">
+                  <div className="w-14 h-14 rounded-full bg-[#2B3A52] flex items-center justify-center mx-auto mb-4">
+                    <span className="font-serif text-white font-bold text-lg">{s.step}</span>
+                  </div>
+                  {i < STEPS.length - 1 && (
+                    <div className="hidden md:block absolute top-7 left-[calc(50%+28px)] right-[-50%] h-px bg-[#DDD9D2]" />
+                  )}
+                  <h3 className="font-bold text-[#2B3A52] text-sm mb-2">{s.title}</h3>
+                  <p className="text-xs text-[#7A7570] leading-relaxed">{s.body}</p>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#2C1F14] mb-1">田中 健二</h3>
-                <p className="text-xs text-[#6B5744] mb-4">整体師・院長</p>
-                <p className="text-sm text-[#6B5744] leading-relaxed">
-                  15年以上の施術経験を持つ整体師。腰痛・肩こりの根本改善を得意とし、丁寧なカウンセリングで多くの方に喜ばれています。
-                </p>
-              </div>
-
-              {/* Staff 2 */}
-              <div className="bg-white p-8 flex flex-col items-center text-center shadow-sm">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[#C8956B] to-[#D4A882] flex items-center justify-center mb-6 shadow-sm">
-                  <span className="font-serif text-4xl font-bold text-white">佐</span>
-                </div>
-                <h3 className="font-serif text-xl font-bold text-[#2C1F14] mb-1">佐藤 美咲</h3>
-                <p className="text-xs text-[#6B5744] mb-4">鍼灸師・リラクゼーション担当</p>
-                <p className="text-sm text-[#6B5744] leading-relaxed">
-                  鍼灸師の資格を持ち、全身リラクゼーションと美容鍼を専門とします。心と体のバランスを整えるトリートメントが得意です。
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* ─── TESTIMONIALS ─── */}
-        <section className="bg-white py-20 md:py-28">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <p className="text-xs tracking-[0.2em] text-[#C8956B] uppercase mb-4">Voice</p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2C1F14]">お客様の声</h2>
-              <div className="w-12 h-0.5 bg-[#8C6239] mx-auto mt-3 mb-0" />
+        {/* ─── スタッフ ─── */}
+        <section className="bg-[#ECEAE4] py-20 md:py-28">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Staff</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">スタッフ紹介</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
             </div>
-
-            {/* Mobile: horizontal scroll / PC: 3-col grid */}
-            <div className="flex gap-5 overflow-x-auto pb-2 -mx-2 px-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 md:mx-0 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
-                  name: "山田さん",
-                  text: "長年悩んでいた腰痛が、3回の施術でかなり楽になりました。田中先生の丁寧なカウンセリングに安心感を覚え、今では月2回通っています。",
+                  initial: "田",
+                  name: "田中 健二",
+                  role: "整体師・院長",
+                  certs: ["整体師認定資格", "スポーツトレーナー"],
+                  bio: "腰痛・肩こりの根本改善を得意とし、15年以上の施術経験を持つ。丁寧なカウンセリングと確かな手技で、多くの方の体のお悩みを解決してきました。",
                 },
                 {
-                  name: "鈴木さん",
-                  text: "肩こりがひどくて睡眠も浅かったのですが、施術後は体がとても軽くなりました。スタッフの方々がとても親切で、また来たいと思える素敵なクリニックです。",
+                  initial: "佐",
+                  name: "佐藤 美咲",
+                  role: "鍼灸師・整体師",
+                  certs: ["鍼灸師（国家資格）", "柔道整復師"],
+                  bio: "産後ケア・骨盤矯正を専門とし、女性特有のお悩みに寄り添った施術を提供。「痛くない優しい整体」が得意です。",
                 },
-                {
-                  name: "田中さん",
-                  text: "デスクワークで猫背が気になっていましたが、姿勢矯正のメニューを試したところ見違えるほど改善。完全予約制なので待ち時間もなく快適です。",
-                },
-              ].map((review) => (
-                <div
-                  key={review.name}
-                  className="min-w-[280px] md:min-w-0 border border-[#E8DDD0] p-8 flex flex-col"
-                >
-                  <span className="font-serif text-5xl text-[#C8956B] leading-none mb-4 select-none">&ldquo;</span>
-                  <p className="text-sm text-[#6B5744] leading-relaxed flex-1 mb-6">{review.text}</p>
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-[#2C1F14]">{review.name}</p>
-                    <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} size={13} className="fill-amber-400 text-amber-400" />
-                      ))}
+              ].map((staff) => (
+                <div key={staff.name} className="bg-white border border-[#DDD9D2] p-8">
+                  <div className="flex items-start gap-5">
+                    <div className="w-16 h-16 rounded-full bg-[#2B3A52] flex items-center justify-center shrink-0">
+                      <span className="font-serif text-2xl font-bold text-white">{staff.initial}</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-[#2B3A52] text-lg leading-none">{staff.name}</h3>
+                      <p className="text-xs text-[#5C7FA3] mt-1 mb-3">{staff.role}</p>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {staff.certs.map((c) => (
+                          <span key={c} className="inline-flex items-center gap-1 text-[10px] bg-[#F7F4EE] border border-[#DDD9D2] text-[#2B3A52] px-2 py-1">
+                            <Check size={9} className="text-[#5C7FA3]" />
+                            {c}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-sm text-[#7A7570] leading-relaxed">{staff.bio}</p>
                     </div>
                   </div>
                 </div>
@@ -274,26 +283,77 @@ export default async function TopPage() {
           </div>
         </section>
 
-        {/* ─── FOOTER ─── */}
-        <footer className="bg-[#2C1F14] py-12">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <p className="font-serif text-2xl font-bold text-white mb-4">小川整体院</p>
+        {/* ─── お客様の声 ─── */}
+        <section className="bg-[#F7F4EE] py-20 md:py-28">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p className="text-[#5C7FA3] text-xs tracking-[0.2em] uppercase mb-3">Reviews</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#2B3A52]">お客様の声</h2>
+              <div className="w-10 h-0.5 bg-[#5C7FA3] mx-auto mt-4" />
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
+              {[
+                { name: "山田さん（40代・男性）", symptom: "腰痛・ぎっくり腰", text: "長年の腰痛が3回の施術でかなり楽になりました。原因をしっかり説明してもらえ、自宅でのケアも教えてもらえたのが良かったです。" },
+                { name: "鈴木さん（30代・女性）", symptom: "肩こり・頭痛", text: "デスクワークで毎日頭痛がひどかったのですが、施術後は別人のように体が軽くなりました。先生の説明が丁寧でとても安心できました。" },
+                { name: "田中さん（20代・女性）", symptom: "産後骨盤矯正", text: "産後の体のゆがみが気になっていましたが、骨盤矯正コースを受けてから腰の痛みが減り、体型も整ってきた気がします。" },
+              ].map((r) => (
+                <div key={r.name} className="min-w-[280px] md:min-w-0 bg-white border border-[#DDD9D2] p-6 flex flex-col">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1,2,3,4,5].map((s) => <span key={s} className="text-amber-400 text-sm">★</span>)}
+                  </div>
+                  <span className="text-[10px] text-white bg-[#5C7FA3] px-2 py-0.5 self-start mb-3">{r.symptom}</span>
+                  <p className="text-sm text-[#7A7570] leading-relaxed flex-1 mb-4">「{r.text}」</p>
+                  <p className="text-xs font-medium text-[#2B3A52]">{r.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── 予約CTA ─── */}
+        <section className="bg-[#2B3A52] py-16 md:py-20">
+          <div className="max-w-3xl mx-auto px-6 text-center">
+            <p className="text-[#93BDD4] text-xs tracking-[0.2em] uppercase mb-4">Reservation</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-3">まずはお気軽にどうぞ</h2>
+            <p className="text-white/70 text-sm mb-8">初めての方も安心。丁寧にご説明します。</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/reserve"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#2B3A52] font-bold px-10 py-4 text-sm hover:bg-[#F7F4EE] transition-colors"
+              >
+                ネット予約（24時間受付）
+                <ChevronRight size={16} />
+              </Link>
+              {settings?.phone && (
+                <a
+                  href={`tel:${settings.phone}`}
+                  className="inline-flex items-center justify-center gap-2 border-2 border-white/50 text-white font-medium px-10 py-4 text-sm hover:bg-white/10 transition-colors"
+                >
+                  <Phone size={15} />
+                  {settings.phone}
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── フッター ─── */}
+        <footer className="bg-[#1B2940] py-10">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <p className="font-serif text-xl font-bold text-white mb-3">小川整体院</p>
             {settings?.address && (
-              <p className="text-sm text-white/70 flex items-center justify-center gap-1.5 mb-1">
-                <MapPin size={13} />
-                {settings.address}
+              <p className="text-sm text-white/60 flex items-center justify-center gap-1.5 mb-1">
+                <MapPin size={12} />{settings.address}
               </p>
             )}
             {settings?.phone && (
-              <p className="text-sm text-white/70 flex items-center justify-center gap-1.5 mb-1">
-                <Phone size={13} />
-                {settings.phone}
+              <p className="text-sm text-white/60 flex items-center justify-center gap-1.5 mb-1">
+                <Phone size={12} />{settings.phone}
               </p>
             )}
             {settings && (
-              <p className="text-sm text-white/70 flex items-center justify-center gap-1.5 mb-6">
-                <Clock size={13} />
-                {settings.openTime} 〜 {settings.closeTime}（日曜定休）
+              <p className="text-sm text-white/60 flex items-center justify-center gap-1.5 mb-6">
+                <Clock size={12} />{settings.openTime} 〜 {settings.closeTime}（日曜定休）
               </p>
             )}
             <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} 小川整体院. All rights reserved.</p>
@@ -301,17 +361,17 @@ export default async function TopPage() {
         </footer>
       </main>
 
-      {/* ─── STICKY CTA (mobile only) ─── */}
+      {/* ─── モバイル固定CTA ─── */}
       <div
-        className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-[#E8DDD0] px-4 pt-3 z-20 md:hidden"
+        className="fixed bottom-0 left-0 right-0 bg-[#2B3A52] border-t border-[#1B2940] px-4 pt-3 z-20 md:hidden"
         style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
       >
         <Link
           href="/reserve"
-          className="flex items-center justify-center gap-2 bg-[#8C6239] text-white font-bold py-4 rounded-none text-base w-full active:scale-[0.97] transition-all"
+          className="flex items-center justify-center gap-2 bg-white text-[#2B3A52] font-bold py-4 text-sm w-full active:scale-[0.97] transition-all"
         >
-          今すぐ予約する
-          <ChevronRight size={20} />
+          ネット予約（24時間受付）
+          <ChevronRight size={18} />
         </Link>
       </div>
     </div>
