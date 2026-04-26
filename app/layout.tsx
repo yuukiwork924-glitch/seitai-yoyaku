@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Noto_Serif_JP } from "next/font/google";
+
+const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
   title: "小川クリニック | 予約システム",
@@ -30,7 +33,7 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body className="antialiased min-h-screen bg-[#faf8f5]">
+      <body className={`antialiased min-h-screen bg-[#faf8f5] ${notoSerifJP.variable}`}>
         <Providers>{children}</Providers>
       </body>
     </html>
