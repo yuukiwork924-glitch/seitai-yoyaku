@@ -25,7 +25,7 @@ export default function InfoPage() {
     allergies: "",
   });
 
-  if (!draft.staffId !== undefined || !draft.date) {
+  if (!draft.menuId || !draft.date) {
     if (typeof window !== "undefined") router.push("/reserve");
     return null;
   }
