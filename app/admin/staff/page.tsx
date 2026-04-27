@@ -20,6 +20,7 @@ export default function StaffPage() {
   const [editId, setEditId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   const fetchStaff = async () => {
     const res = await fetch("/api/staff");
@@ -43,6 +44,7 @@ export default function StaffPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setSaveError("");
     const res = editId
       ? await fetch(`/api/staff/${editId}`, {
           method: "PATCH",
@@ -55,7 +57,13 @@ export default function StaffPage() {
           body: JSON.stringify(form),
         });
     setLoading(false);
-    if (res.ok) { setOpen(false); fetchStaff(); }
+    if (res.ok) {
+      setOpen(false);
+      fetchStaff();
+    } else {
+      const body = await res.json().catch(() => ({}));
+      setSaveError(body.error ?? `エラーが発生しました (${res.status})`);
+    }
   };
 
   return (
@@ -71,6 +79,9 @@ export default function StaffPage() {
               <DialogTitle>{editId ? "スタッフ編集" : "スタッフ追加"}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
+              {saveError && (
+                <div className="bg-red-50 text-red-600 px-3 py-2 text-sm border border-red-100">{saveError}</div>
+              )}
               <div>
                 <Label>名前 *</Label>
                 <Input className="mt-1" value={form.name}
