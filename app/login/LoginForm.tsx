@@ -127,16 +127,6 @@ export default function LoginForm() {
             </Button>
           </form>
 
-          {/* Demo accounts */}
-          <div className="mt-7 rounded-xl bg-[#1e1e1e] p-4 text-xs font-mono">
-            <p className="text-[#6a9955] mb-2">{`// デモアカウント`}</p>
-            <p className="text-[#9cdcfe]">管理者</p>
-            <p className="text-[#ce9178]">admin@example.com</p>
-            <p className="text-[#b5cea8] mb-2">password123</p>
-            <p className="text-[#9cdcfe]">顧客</p>
-            <p className="text-[#ce9178]">customer1@example.com</p>
-            <p className="text-[#b5cea8]">password123</p>
-          </div>
         </div>
       </div>
     </div>

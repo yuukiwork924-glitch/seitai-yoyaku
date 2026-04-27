@@ -446,6 +446,9 @@ export default async function TopPage() {
                 <Clock size={12} />{settings.openTime} 〜 {settings.closeTime}
               </p>
             )}
+            <div className="flex items-center justify-center gap-4 mb-3">
+              <Link href="/privacy" className="text-xs text-white/40 hover:text-white/70 transition-colors">プライバシーポリシー</Link>
+            </div>
             <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} 小川整体院. All rights reserved.</p>
           </div>
         </footer>
